@@ -1,0 +1,20 @@
+name: RotateSRV
+version: 0.0.1
+
+authors:
+  - Yive <admin@yive.me>
+
+targets:
+  RotateSRV:
+    main: src/RotateSRV.cr
+
+crystal: 0.23.1
+
+license: MIT
+
+dependencies:
+  dotenv:
+    github: gdotdesign/cr-dotenv
+  cossack:
+    github: crystal-community/cossack
+    version: ~> 0.1
