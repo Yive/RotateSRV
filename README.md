@@ -3,6 +3,7 @@
 SRV rotation tool used to bypass Mojang's Minecraft server blacklisting.
 
 **Currently Crystal does not support Windows**
+
 **This is my first project in Crystal so the code is likely terrible, but it works from my testing.**
 
 ## Compiling
