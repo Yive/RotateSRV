@@ -17,6 +17,7 @@ $ ./RotateSRV
 1. First off, execute the file once to generate it's config files.
 2. Two folders will be generated in the base directory. One being `domains` and the other being `example-domains`.
 3. `example-domains` will contain another folder within it which will have the required files for a domain.
+
 **Note: `example-domains` gets deleted & regenerated each launch so don't keep anything in it.**
 4. Create a copy of the `mc.example.com` folder inside of the `domains` folder.
 5. Edit the files in the newly made folder. Then execute the file again.
