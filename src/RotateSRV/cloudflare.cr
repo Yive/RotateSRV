@@ -11,7 +11,12 @@ module RotateSRV
         client.headers["X-Auth-Key"] = "#{key}"
         client.headers["Content-Type"] = "application/json"
       end
-      cloudflare = cossack.get("https://api.cloudflare.com/client/v4/zones/#{zone}/dns_records?type=SRV&name=_minecraft._tcp.#{domain}")
+      begin
+        cloudflare = cossack.get("https://api.cloudflare.com/client/v4/zones/#{zone}/dns_records?type=SRV&name=_minecraft._tcp.#{domain}")
+      rescue ex
+        puts "Error when contacting cloudflare for domain information. (#{ex.message})"
+        return JSON.parse(%({"success": false}))
+      end
       cloudflareJson = JSON.parse(cloudflare.body)
       if cloudflareJson["success"].as_bool == false
         puts "#{RotateSRV::Colours.red}Cloudflare error detected while grabbing domain information:#{RotateSRV::Colours.reset}"
@@ -49,7 +54,12 @@ module RotateSRV
         client.headers["X-Auth-Key"] = "#{key}"
         client.headers["Content-Type"] = "application/json"
       end
-      cloudflare = cossack.put("https://api.cloudflare.com/client/v4/zones/#{zone}/dns_records/#{domainID}", requestJson)
+      begin
+        cloudflare = cossack.put("https://api.cloudflare.com/client/v4/zones/#{zone}/dns_records/#{domainID}", requestJson)
+      rescue ex
+        puts "Error when contacting cloudflare to update the domain's SRV target. (#{ex.message})"
+        return false
+      end
       cloudflareJson = JSON.parse(cloudflare.body)
       if cloudflareJson["success"].as_bool == false
         puts "#{RotateSRV::Colours.red}Cloudflare error detected while updating domain information:#{RotateSRV::Colours.reset}"

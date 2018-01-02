@@ -14,7 +14,12 @@ module RotateSRV
         if domain.nil?
           next
         end
-        response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+        begin
+          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+        rescue ex
+          puts "Error when contacting GameAPIs to update it's database. (#{ex.message})"
+          return false
+        end
         if response.status == 200
           puts "#{domain} added to database"
         else
@@ -33,7 +38,12 @@ module RotateSRV
         if domain.nil?
           next
         end
-        response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+        begin
+          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+        rescue ex
+          puts "Error when contacting GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
+          return false
+        end
         json = JSON.parse(response.body)
         json["#{domain}"].each do |check|
           if check["domain"] == domain
@@ -59,7 +69,12 @@ module RotateSRV
       File.write("#{path}/domains.txt", remake)
       remake = ""
       puts "#{RotateSRV::Colours.green}## Checking if current target is blacklisted. ###{RotateSRV::Colours.reset}"
-      currentResponse = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{current[0]}")
+      begin
+        currentResponse = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{current[0]}")
+      rescue ex
+        puts "Error when contacting GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
+        return false
+      end
       currentResponseJson = JSON.parse(currentResponse.body)
       currentResponseJson["#{current[0]}"].each do |check|
         if check["domain"] == current[0]
