@@ -2,7 +2,16 @@
 
 ### Compiling
 
+**Installing Crystal**
+https://crystal-lang.org/docs/installation/
+
+**Installing git**
+https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md
+
+**Compiling RotateSRV**
 ```
+$ git clone https://github.com/Yive/RotateSRV
+$ cd RotateSRV
 $ shards install
 $ crystal build ./src/RotateSRV.cr
 ```
@@ -23,6 +32,8 @@ $ ./RotateSRV
 **Note: `example-domains` gets deleted & regenerated each launch so don't keep anything in it.**
 
 _It's recommended to run the command inside of tmux or screen so it doesn't close the program when you close your ssh session_
+[Tmux Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tmux-on-ubuntu-12-10--2)
+[Screen Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-screen-on-an-ubuntu-cloud-server)
 
 ### Files
 
