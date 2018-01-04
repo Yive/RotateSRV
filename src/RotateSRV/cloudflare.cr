@@ -69,7 +69,7 @@ module RotateSRV
         cloudflareJson = JSON.parse(cloudflare.body)
       rescue ex
         puts "Error reading JSON from cloudflare to update the domain's SRV target. (#{ex.message})"
-        return JSON.parse(%({"success": false}))
+        return false
       end
       if cloudflareJson["success"].as_bool == false
         puts "#{RotateSRV::Colours.red}Cloudflare error detected while updating domain information:#{RotateSRV::Colours.reset}"
