@@ -9,6 +9,8 @@ https://crystal-lang.org/docs/installation/
 https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-linux-md
 
 **Compiling RotateSRV**
+You may need to install either `openssl-dev` or `libssl-dev`.
+
 ```
 $ git clone https://github.com/Yive/RotateSRV
 $ cd RotateSRV
