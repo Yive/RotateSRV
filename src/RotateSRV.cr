@@ -11,9 +11,9 @@ module RotateSRV
   if !RotateSRV::Configuration.check_configs
     exit
   end
-  domainFolders = Dir.glob("./domains/*")
+  domain_folders = Dir.glob("./domains/*")
   while true
-    domainFolders.each do |domain|
+    domain_folders.each do |domain|
       if !RotateSRV::Configuration.check_settings(domain)
         next
       end
@@ -35,9 +35,21 @@ module RotateSRV
       if cloudflare["success"].as_bool == false
         next
       end
-      domains = File.read_lines("#{domain}/domains.txt")
-      RotateSRV::Cloudflare.updateCloudflareDomains(settings["CLOUDFLARE-ZONE"], settings["CLOUDFLARE-EMAIL"], settings["CLOUDFLARE-KEY"], cloudflare["result"][0]["id"].to_s, settings["DOMAIN-NAME"], domains[0], settings["PORT"], domain)
-      puts "#{RotateSRV::Colours.green}.#{settings["DOMAIN-NAME"]} has had it's target changed to #{domains[0]}#{RotateSRV::Colours.reset}"
+      begin
+        domains = File.read_lines("#{domain}/domains.txt")
+        RotateSRV::Cloudflare.update_cloudflare_domains(settings["CLOUDFLARE-ZONE"], settings["CLOUDFLARE-EMAIL"], settings["CLOUDFLARE-KEY"], cloudflare["result"][0]["id"].to_s, settings["DOMAIN-NAME"], domains[0], settings["PORT"], domain)
+        puts "#{RotateSRV::Colours.green}.#{settings["DOMAIN-NAME"]} has had it's target changed to #{domains[0]}#{RotateSRV::Colours.reset}"
+      rescue e
+        puts "Error while attempting to update cloudflare."
+        puts "CLOUDFLARE-ZONE: #{settings["CLOUDFLARE-ZONE"]}"
+        puts "CLOUDFLARE-EMAIL: #{settings["CLOUDFLARE-EMAIL"]}"
+        puts "CLOUDFLARE-KEY: #{settings["CLOUDFLARE-KEY"]}"
+        puts "Cloudflare Response ID: #{cloudflare["result"][0]["id"]}"
+        puts "DOMAIN-NAME: #{settings["DOMAIN-NAME"]}"
+        puts "Line 1 of #{domain}domains.txt: #{domains[0]}"
+        puts "PORT: #{settings["PORT"]}"
+        puts e
+      end
     end
     puts "\n" * 2
     puts "#{RotateSRV::Colours.cyan}"

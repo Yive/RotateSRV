@@ -15,7 +15,7 @@ module RotateSRV
           next
         end
         begin
-          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain.downcase}")
         rescue ex
           puts "Error when contacting GameAPIs to update it's database. (#{ex.message})"
           return false
@@ -39,7 +39,7 @@ module RotateSRV
           next
         end
         begin
-          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain}")
+          response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{domain.downcase}")
         rescue ex
           puts "Error when contacting GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
           return false
@@ -53,10 +53,10 @@ module RotateSRV
         json["#{domain}"].each do |check|
           if check["domain"] == domain
             if check["blocked"] == true
-              puts "#{domain}: blacklisted"
+              puts "#{domain.downcase}: blacklisted"
               domains.delete(domain)
             else
-              puts "#{domain}: not blacklisted"
+              puts "#{domain.downcase}: not blacklisted"
             end
           else
             if check["blocked"] == true
@@ -75,24 +75,24 @@ module RotateSRV
       remake = ""
       puts "#{RotateSRV::Colours.green}## Checking if current target is blacklisted. ###{RotateSRV::Colours.reset}"
       begin
-        currentResponse = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{current[0]}")
+        current_response = Cossack.get("https://use.gameapis.net/mc/extra/blockedservers/check/#{current[0].downcase}")
       rescue ex
         puts "Error when contacting GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
         return false
       end
       begin
-        currentResponseJson = JSON.parse(currentResponse.body)
+        current_response_json = JSON.parse(current_response.body)
       rescue ex
         puts "Error when reading the JSON from GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
         return false
       end
-      currentResponseJson["#{current[0]}"].each do |check|
+      current_response_json["#{current[0]}"].each do |check|
         if check["domain"] == current[0]
           if check["blocked"] == true
-            puts "#{current[0]}: blacklisted"
+            puts "#{current[0].downcase}: blacklisted"
             return true
           else
-            puts "#{current[0]}: not blacklisted"
+            puts "#{current[0].downcase}: not blacklisted"
           end
         else
           if check["blocked"] == true

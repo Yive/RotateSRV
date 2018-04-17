@@ -15,7 +15,7 @@ module RotateSRV
           Dir.rmdir("./domains-example")
       end
       Dir.mkdir_p("./domains-example/mc.example.com")
-      File.write("./domains-example/mc.example.com/.env", "# API key for Cloudflare.\nCLOUDFLARE-KEY=\n# Zone ID for your domain at Cloudflare.\nCLOUDFLARE-ZONE=\n# The email for the account that has your domain on it.\nCLOUDFLARE-EMAIL=\n\n# The sub-domain/domain that your players join through. (MUST BE AN SRV RECORD)\nDOMAIN-NAME=mc.example.com\n# The port that your SRV record is pointing to.\nPORT=25565")
+      File.write("./domains-example/mc.example.com/.env", "# API key for Cloudflare.\nCLOUDFLARE-KEY=\n# Zone ID for your domain at Cloudflare.\nCLOUDFLARE-ZONE=\n# The email for the account that has your domain on it.\nCLOUDFLARE-EMAIL=\n\n# The sub-domain/domain that your players join through. (MUST BE AN SRV RECORD)\nDOMAIN-NAME=mc.example.com\n# The port that your SRV record is pointing to.\nPORT=25565\n# Instead of having a domains.txt for each domain, when a domain has this set to true, the program will use the domains.txt from inside of the folder called multiple.\nMULTI=false")
       File.write("./domains-example/mc.example.com/current.txt", "example.ddns.net")
       File.write("./domains-example/mc.example.com/domains.txt", "example1.ddns.net\nexample2.ddns.net")
       return true
