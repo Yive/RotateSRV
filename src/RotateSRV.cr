@@ -35,8 +35,8 @@ module RotateSRV
       if cloudflare["success"].as_bool == false
         next
       end
+      domains = File.read_lines("#{domain}/domains.txt")
       begin
-        domains = File.read_lines("#{domain}/domains.txt")
         RotateSRV::Cloudflare.update_cloudflare_domains(settings["CLOUDFLARE-ZONE"], settings["CLOUDFLARE-EMAIL"], settings["CLOUDFLARE-KEY"], cloudflare["result"][0]["id"].to_s, settings["DOMAIN-NAME"], domains[0], settings["PORT"], domain)
         puts "#{RotateSRV::Colours.green}.#{settings["DOMAIN-NAME"]} has had it's target changed to #{domains[0]}#{RotateSRV::Colours.reset}"
       rescue e
