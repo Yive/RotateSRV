@@ -17,6 +17,7 @@ $ cd RotateSRV
 $ shards install
 $ crystal build ./src/RotateSRV.cr
 ```
+- Note: If `git clone https://github.com/Yive/RotateSRV` errors out, try `git clone git://github.com/Yive/RotateSRV`
 
 ### Pre-compiled builds
 https://github.com/Yive/RotateSRV/releases
