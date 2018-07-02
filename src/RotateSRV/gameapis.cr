@@ -50,22 +50,27 @@ module RotateSRV
           puts "Error when reading the JSON from GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
           return false
         end
-        json["#{domain}"].as_a.each do |check|
-          if check["domain"] == domain
-            if check["blocked"] == true
-              puts "#{domain.downcase}: blacklisted"
-              domains.delete(domain)
+        begin
+          json["#{domain.downcase}"].as_a.each do |check|
+            if check["domain"] == domain
+              if check["blocked"] == true
+                puts "#{domain.downcase}: blacklisted"
+                domains.delete(domain)
+              else
+                puts "#{domain.downcase}: not blacklisted"
+              end
             else
-              puts "#{domain.downcase}: not blacklisted"
-            end
-          else
-            if check["blocked"] == true
-              puts "#{check["domain"]}: wildcard blacklist detected"
-              domains.delete(domain)
-            else
-              puts "#{check["domain"]}: no wildcard blacklist detected"
+              if check["blocked"] == true
+                puts "#{check["domain"]}: wildcard blacklist detected"
+                domains.delete(domain)
+              else
+                puts "#{check["domain"]}: no wildcard blacklist detected"
+              end
             end
           end
+        rescue
+          puts "Error when figuring out if #{domain.downcase} is blacklisted or not."
+          return false
         end
       end
       domains.each do |domain|
