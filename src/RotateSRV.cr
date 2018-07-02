@@ -55,8 +55,6 @@ module RotateSRV
     puts "#{RotateSRV::Colours.cyan}"
     puts "It's appreciated if you donate to the developer of this tool."
     puts "Bitcoin: 17VvSXnhcNeUcCtnjZCoogNCoi8CGuadWF"
-    puts "Siacoin: ec0d4d8b2d88728134763382d03ce5575a0382ca893632ddea0cdb6161704a20d2c9e85a9fd4"
-    puts "Monero: 4A92DJJe5sfW3gw5PMXbcvV54gQciJh9ZR3TBZYsSd4ZafxCr8QiHqVCCtahi1MujVCN5NSNqmubLG1132Q1K88qHcPzMTs"
     puts "#{RotateSRV::Colours.reset}"
     puts "\n" * 2
     sleep 60.seconds

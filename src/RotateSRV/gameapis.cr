@@ -50,7 +50,7 @@ module RotateSRV
           puts "Error when reading the JSON from GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
           return false
         end
-        json["#{domain}"].each do |check|
+        json["#{domain}"].as_a.each do |check|
           if check["domain"] == domain
             if check["blocked"] == true
               puts "#{domain.downcase}: blacklisted"
@@ -86,7 +86,7 @@ module RotateSRV
         puts "Error when reading the JSON from GameAPIs for checking if a domain is blacklisted. (#{ex.message})"
         return false
       end
-      current_response_json["#{current[0]}"].each do |check|
+      current_response_json["#{current[0]}"].as_a.each do |check|
         if check["domain"] == current[0]
           if check["blocked"] == true
             puts "#{current[0].downcase}: blacklisted"
