@@ -1,5 +1,7 @@
 # RotateSRV
 
+**Crystal 0.25.x caused this to no longer work correctly, I haven't really used Crystal in months so quite unlikely I'll end up fixing it. If you do somehow build this with version 0.24.x then it should work, but make sure to build this https://github.com/Yive/RotateSRV/tree/0df695dd0c359eb6c0359c522ba5adacad39839c**
+
 SRV rotation tool used to bypass Mojang's Minecraft server blacklisting.
 
 **Currently Crystal does not support Windows**
